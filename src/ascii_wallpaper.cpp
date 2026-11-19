@@ -460,10 +460,10 @@ public:
         GdkDisplay* dpy = gdk_display_get_default();
         if (dpy) {
             g_signal_connect(dpy, "monitor-added", G_CALLBACK(+[](GdkDisplay*, GdkMonitor*, gpointer d) {
-                static_cast<AsciiWallpaperApp*>(d)->setup_monitor_windows();
+                static_cast<AsciiWallpaperApp*>(d)->schedule_monitor_rebuild(800);
             }), this);
             g_signal_connect(dpy, "monitor-removed", G_CALLBACK(+[](GdkDisplay*, GdkMonitor*, gpointer d) {
-                static_cast<AsciiWallpaperApp*>(d)->setup_monitor_windows();
+                static_cast<AsciiWallpaperApp*>(d)->schedule_monitor_rebuild(300);
             }), this);
         }
 
@@ -550,7 +550,21 @@ private:
     std::vector<FloatingTag> tags_;
 
     guint tick_id_ = 0;
+    guint monitor_rebuild_id_ = 0;
     gint64 last_tick_us_ = 0;
+
+    void schedule_monitor_rebuild(guint delay_ms) {
+        if (monitor_rebuild_id_) {
+            g_source_remove(monitor_rebuild_id_);
+            monitor_rebuild_id_ = 0;
+        }
+        monitor_rebuild_id_ = g_timeout_add(delay_ms, [](gpointer d) -> gboolean {
+            auto* self = static_cast<AsciiWallpaperApp*>(d);
+            self->monitor_rebuild_id_ = 0;
+            self->setup_monitor_windows();
+            return G_SOURCE_REMOVE;
+        }, this);
+    }
     double fps_est_ = 30.0;
 
     void init_rain() {
