@@ -397,12 +397,12 @@ public:
         fs::path nat_assets = fs::path(root_dir_) / "assets" / "natsuki";
 
         const std::array<std::pair<const char*, const char*>, 6> mood_defs = {{
-            {"happy", "Feliz"},
-            {"blush", "Sonrojada"},
+            {"happy", "Happy"},
+            {"blush", "Blush"},
             {"tsun", "Tsundere"},
-            {"angry", "Enojada"},
-            {"surprised", "Sorpresa"},
-            {"thinking", "Pensando"},
+            {"angry", "Angry"},
+            {"surprised", "Shocked"},
+            {"thinking", "Thinking"},
         }};
         for (const auto& [mid, mlbl] : mood_defs) {
             MoodSpriteSet s;
@@ -450,7 +450,7 @@ public:
         }
 
         init_rain();
-        say("Bliss x Arch ASCII activo! Tux, Lelouch y yo cuidamos tu Linux~", "happy");
+        say("Bliss x Arch live! Tux, Lelouch & I survived VyR doomposting to guard your rice~", "happy");
 
         if (self_test_) {
             return run_self_test();
@@ -587,11 +587,11 @@ private:
 
     void trigger_pat_reaction(double px, double py) {
         static const std::array<std::pair<const char*, const char*>, 5> kPatLines = {{
-            {"Nyaa~?! N-No me acaricies las orejas asi... idiota >///<", "blush"},
-            {"Prrr... digo, NO estaba ronroneando! Solo me acomodaba el gorro!", "blush"},
-            {"Hmph! Si sigues haciendome piojito en las orejas me voy a quedar aqui todo el dia~", "happy"},
-            {"Meow~ Ok, un poquito mas ahi atras de la orejita no esta mal...", "happy"},
-            {"O-Oye! Las orejas de gato son sensibles, baka!!", "tsun"},
+            {"N-Nya?! Stop patting my cat ears while blasting 2011 Nightcore AMVs, baka >///<", "blush"},
+            {"Prrr... NO I am NOT purring! I'm calibrating pitch +30% Nightcore Rockefeller Street!!", "blush"},
+            {"Hmph! Petting cat-ears like this feels straight out of the CWCville Dimensional Merge~", "happy"},
+            {"Wait... keep patting there and I won't sage your VyR waifu thread anon~", "happy"},
+            {"Hands off the ears! You're acting weirder than a Doompost lore iceberg at 3 AM!!", "tsun"},
         }};
         size_t idx = static_cast<size_t>(total_clicks_) % kPatLines.size();
         say(kPatLines[idx].first, kPatLines[idx].second, 6.0);
@@ -599,85 +599,85 @@ private:
         spring_vx_ += ((total_clicks_ & 1) ? 3.2 : -3.2);
         ear_twitch_left_ = 0.34;
         ear_twitch_dir_ = (total_clicks_ & 1) ? 1 : -1;
-        spawn_tags(px, py, {"nya~", "<3", "^w^", "*purr*"}, themes_[theme_idx_].accent);
+        spawn_tags(px, py, {"nya~", "nightcore", "^w^", "*purr*"}, themes_[theme_idx_].accent);
     }
 
     void trigger_bell_reaction(double px, double py) {
         static const std::array<std::pair<const char*, const char*>, 4> kBellLines = {{
-            {"*Ring~!* Oye! Mi cascabel no es un timbre para llamarme!!", "tsun"},
-            {"*Ding!* Nya?! Me asustaste con el cascabelito!", "surprised"},
-            {"Tilín~ Quieres un cupcake con forma de gatito o que?", "happy"},
-            {"No toques mi collar o te muerdo como gato callejero!! >:3", "angry"},
+            {"*Ring~!* Hey! My collar bell isn't the VyR thread refresh button, anon!!", "tsun"},
+            {"*Ding!* Nya?! Sounds like the Man in the Pickle Suit just walked into CWCville!", "surprised"},
+            {"Jingle~ Ring again for Sonichu-tier cupcakes or Angel With A Shotgun Nightcore!", "happy"},
+            {"Touch my bell one more time and I'm calling Liquid Chris on your rice!! >:3", "angry"},
         }};
         size_t idx = static_cast<size_t>(total_clicks_) % kBellLines.size();
         say(kBellLines[idx].first, kBellLines[idx].second, 5.5);
         spring_vz_ -= 6.0;
         spring_vx_ += 4.5;
-        spawn_tags(px, py, {"*ding!*", "~♪", ":3"}, themes_[theme_idx_].accent_soft);
+        spawn_tags(px, py, {"*ding!*", "sonichu", ":3"}, themes_[theme_idx_].accent_soft);
     }
 
     void trigger_poke_reaction(double px, double py) {
         static const std::array<std::pair<const char*, const char*>, 5> kPokeLines = {{
-            {"O-OYE!! Donde pones el cursor?! Baka!! >.<", "angry"},
-            {"Nyaaa!! Quitame ese puntero de encima ahorita mismo!!", "angry"},
-            {"Q-Que miras mi sueter de gatito?! No te burles!!", "tsun"},
-            {"Hmph! Manga + gatito = obra de arte. Respeta!!", "surprised"},
-            {"Grrr~ *arañazo ASCII* Te voy a borrar el wallpaper si sigues picando!", "angry"},
+            {"H-HEY!! Where is that cursor going?! Do I look like a VyR bait thread?! >.<", "angry"},
+            {"Back off!! Keep poking and you're getting exiled straight to CWCville!!", "angry"},
+            {"Q-Quit staring at my NYA sweater! Even the Doomverse guys have better manners!", "tsun"},
+            {"Manga IS literature, AND 2012 anime Nightcore is peak culture. Respect!!", "surprised"},
+            {"Grrr~ *ASCII scratch* One more poke and I brick your bootloader, baka!!", "angry"},
         }};
         size_t idx = static_cast<size_t>(total_clicks_) % kPokeLines.size();
         say(kPokeLines[idx].first, kPokeLines[idx].second, 5.5);
         spring_vz_ -= 9.5;
         spring_vx_ += ((total_clicks_ & 1) ? -5.8 : 5.8);
-        spawn_tags(px, py, {"BAKA!", ">.<", "nya?!", "!"}, {255, 95, 130});
+        spawn_tags(px, py, {"SAGE!", ">.<", "BAKA!", "!"}, {255, 95, 130});
     }
 
     void trigger_bg_reaction(double px, double py) {
         static const std::array<std::pair<const char*, const char*>, 5> kBgLines = {{
-            {"*mira tu cursor pasear por el escritorio* Hmph, hoy si vas a programar?", "thinking"},
-            {"Nya~ Me veo mas tierna en ASCII que tu tema minimalista, admitelo!", "happy"},
-            {"=^._.^= Vigilando tus ventanas en silencio... mas te vale no abrir basura!", "tsun"},
-            {"*mueve la colita de gato* Tus letras ASCII brillan bonito hoy~", "blush"},
-            {"Miaw~ Haz clic en mis orejas si necesitas animo para chambear!", "happy"},
+            {"*watches your cursor* Anon, stop lurking VyR and actually write some code!", "thinking"},
+            {"Nya~ Nightcore AMV playing in spirit while Arch compiles in the background~", "happy"},
+            {"=^._.^= Guarding your desktop from Windows bloat and Doompost drama threads!", "tsun"},
+            {"Fun fact: The Dimensional Merge only delivers crisp ASCII catgirls on Hyprland.", "blush"},
+            {"Meow~ Queue some 2009 Nightcore or click Tux if Windows tries to update!", "happy"},
         }};
         size_t idx = static_cast<size_t>(total_clicks_) % kBgLines.size();
         say(kBgLines[idx].first, kBgLines[idx].second, 5.0);
-        spawn_tags(px, py, {"*", "nya", "+"}, themes_[theme_idx_].rain_color);
+        spawn_tags(px, py, {"*", "VyR", "nya"}, themes_[theme_idx_].rain_color);
     }
 
     void trigger_tux_reaction(double px, double py) {
         static const std::array<std::pair<const char*, const char*>, 5> kTuxLines = {{
-            {"*Tux aletea orgulloso* Dice que 'uses Arch btw', pero yo mando aqui!!", "tsun"},
-            {"Hmph! Tux y yo cuidamos tu kernel mientras haces cosas de otaku~", "happy"},
-            {"*Tux grazna en binario* Oye pinguino, no te robes mis cupcakes!!", "surprised"},
-            {"sudo pacman -Syu cupcakes-de-gato... aprobada la orden por Tux y Natsuki!", "happy"},
-            {"*Tux te saluda con la aleta* Bueno... admito que el pinguino es medio chad.", "blush"},
+            {"*Tux flaps proudly* Even Oveja couldn't survive this level of Windows splashing!", "tsun"},
+            {"You are safe, anon. No Windows telemetry, only Arch + Doomverse-proof Linux~", "happy"},
+            {"*Tux honks in binary* This Bliss hill now belongs to VyR Linux chads & Sonichu!", "surprised"},
+            {"sudo pacman -Syu nightcore-essentials... approved by Tux & the Doompost Council!", "happy"},
+            {"*Tux salutes* Pure Ario-tier kernel stability while splashing WinXP panes!!", "blush"},
         }};
         size_t idx = static_cast<size_t>(total_clicks_) % kTuxLines.size();
         say(kTuxLines[idx].first, kTuxLines[idx].second, 5.5);
         tux_vz_ += 8.2;
         tux_flap_left_ = 0.55;
-        spawn_tags(px, py - 18.0, {"arch btw", "sudo", "linux<3", "*flap*"}, {120, 225, 255});
+        spawn_tags(px, py - 18.0, {"arch btw", "sudo", "VyR chad", "*flap*"}, {120, 225, 255});
     }
 
     void trigger_arch_reaction(double px, double py) {
         static const std::array<std::pair<const char*, const char*>, 4> kArchLines = {{
-            {"I use Arch, btw!! Y con Natsuki neko + Lelouch en el wallpaper todavia mas chad~", "happy"},
-            {"sudo pacman -Syu anime-girl... paquete instalado con exito!!", "blush"},
-            {"Arch Linux + Hyprland + gatita tsundere = el setup definitivo!", "tsun"},
-            {"Cuidado con romper el sistema en AUR... Tux y Lelouch te vigilamos!", "thinking"},
+            {"I use Arch, btw!! Stronger than Liquid Chris singing for Kacey!", "happy"},
+            {"sudo pacman -Syu anime-memes... CWCville + VyR edition installed cleanly!!", "blush"},
+            {"Arch + Hyprland + Natsuki Nya = certified top-tier VyR desktop thread.", "tsun"},
+            {"Careful editing AUR PKGBUILDs or you'll trigger a Doompost-level tragedy!", "thinking"},
         }};
         size_t idx = static_cast<size_t>(total_clicks_) % kArchLines.size();
         say(kArchLines[idx].first, kArchLines[idx].second, 5.5);
         tux_vz_ += 4.5;
-        spawn_tags(px, py - 16.0, {"arch btw", "AUR", "pacman", "chad"}, {79, 212, 255});
+        spawn_tags(px, py - 16.0, {"arch btw", "AUR", "Nightcore", "chad"}, {79, 212, 255});
     }
 
     void trigger_lelouch_reaction(double px, double py) {
         static const std::array<std::pair<const char*, const char*>, 4> kLelouchLines = {{
-            {"Lelouch vi Britannia te ordena: usa Arch Linux y dale mimos a Natsuki!!", "tsun"},
-            {"*brilla su ojo Geass rojo* Windows ha sido destruido por orden de Zero.", "surprised"},
-            {"All Hail Arch Linux!! Natsuki neko + Tux ahora dominan tu escritorio.", "happy"},
-            {"Con el poder del Geass ni un kernel panic podra contigo, btw.", "thinking"},
+            {"Lelouch vi Britannia commands you: use Arch, blast Nightcore, and pet Natsuki!!", "tsun"},
+            {"*Geass flares red* Windows bloat has been obliterated faster than a VyR bait!", "surprised"},
+            {"All Hail Arch Linux!! We control the Dimensional Merge from Zero's terminal.", "happy"},
+            {"With the power of Geass, not even a Doomverse meltdown can crash Hyprland!", "thinking"},
         }};
         size_t idx = static_cast<size_t>(total_clicks_) % kLelouchLines.size();
         say(kLelouchLines[idx].first, kLelouchLines[idx].second, 5.8);
@@ -868,7 +868,7 @@ private:
     void on_button_press(const MonitorWindow& mw, double x, double y, guint button) {
         if (button == 3) {
             theme_idx_ = (theme_idx_ + 1) % static_cast<int>(themes_.size());
-            say("Tema ASCII cambiado a: " + themes_[theme_idx_].label + " ~", "happy", 3.2);
+            say("ASCII theme switched to: " + themes_[theme_idx_].label + " ~", "happy", 3.2);
             queue_redraw();
             return;
         }
@@ -934,11 +934,11 @@ private:
             audio_reactive_ = !audio_reactive_;
             if (audio_reactive_) {
                 audio_monitor_.start("monitor");
-                say("Modo Audio ASCII activado~ Pon tu opening favorito!", "happy", 3.5);
+                say("Audio ASCII ON~ Drop some 2011 Nightcore or anime OPs!", "happy", 3.5);
             } else {
                 audio_monitor_.stop();
                 audio_snap_ = AudioSnapshot{};
-                say("Audio ASCII pausado.", "thinking", 2.5);
+                say("Audio ASCII paused.", "thinking", 2.5);
             }
         } else if (act == "gear") {
             menu_open_ = !menu_open_;
@@ -958,10 +958,10 @@ private:
         if (keyval >= GDK_KEY_1 && keyval <= GDK_KEY_6) {
             auto_mood_ = false;
             mood_idx_ = static_cast<int>(keyval - GDK_KEY_1) % static_cast<int>(sprites_.size());
-            say("Expresion fijada: " + sprites_[mood_idx_].label, sprites_[mood_idx_].id, 3.0);
+            say("Mood locked: " + sprites_[mood_idx_].label, sprites_[mood_idx_].id, 3.0);
         } else if (keyval == GDK_KEY_0) {
             auto_mood_ = true;
-            say("Modo de expresion automatico activado ~", "happy", 3.0);
+            say("Auto mood cycle enabled ~", "happy", 3.0);
         } else if (keyval == GDK_KEY_t || keyval == GDK_KEY_T) {
             handle_hud_action("theme");
         } else if (keyval == GDK_KEY_d || keyval == GDK_KEY_D) {
@@ -1849,16 +1849,16 @@ private:
 
         // Toggleable floating monochrome ASCII settings menu below the gear button
         if (menu_open_) {
-            static const char* kDensLabels[] = {"Hyper", "Ultra", "Fino", "Medio", "Retro"};
+            static const char* kDensLabels[] = {"Hyper", "Ultra", "Fine", "Medium", "Retro"};
             std::vector<std::pair<std::string, std::string>> defs = {
                 {"mood", "Mood:    " + std::string(auto_mood_ ? "Auto/" : "") + sprites_[mood_idx_].label},
-                {"theme", "Tema:    " + themes_[theme_idx_].label},
+                {"theme", "Theme:   " + themes_[theme_idx_].label},
                 {"density", "ASCII:   " + std::string(kDensLabels[density_idx_])},
-                {"rain", std::string("Lluvia:  ") + (rain_enabled_ ? "ON" : "OFF")},
-                {"pos", std::string("Pos:     ") + (right_aligned_ ? "Derecha" : "Centro")},
-                {"tux", std::string("Tux+Arch:") + (tux_enabled_ ? "ON" : "OFF")},
+                {"rain", std::string("Rain:    ") + (rain_enabled_ ? "ON" : "OFF")},
+                {"pos", std::string("Pos:     ") + (right_aligned_ ? "Right" : "Center")},
+                {"tux", std::string("Crew:    ") + (tux_enabled_ ? "ON" : "OFF")},
                 {"audio", std::string("Audio:   ") + (audio_reactive_ ? "ON" : "OFF")},
-                {"gear", "Cerrar menu [x]"},
+                {"gear", "Close menu [x]"},
             };
             int max_lbl = 22;
             for (const auto& [a, l] : defs) {
@@ -1880,7 +1880,7 @@ private:
                     row[xx] = 0xff000000U | (dr << 16) | (dg << 8) | db;
                 }
             }
-            std::string hdr = "+-- Ajustes ASCII " + std::string(std::max(1, max_lbl - 15), '-') + "+";
+            std::string hdr = "+-- ASCII Menu " + std::string(std::max(1, max_lbl - 12), '-') + "+";
             std::string ftr = "+" + std::string(max_lbl + 2, '-') + "+";
             draw_ascii_text(px, w, h, stride_px, ui_atlas, hdr, mx0 + ucw, my0 + 4, kUiBorder, 245);
             for (size_t di = 0; di < defs.size(); ++di) {
